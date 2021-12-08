@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+}
+
+body{
+    background-color: #000;
+    width: 100vw;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;   
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+
+#free-dobby{
+    width: 70vw;
+    
+}
+
+.to-do{
+    color: #fff;
+    margin-top: 55px;
+}
+
+.to-do p{
+    font-size: 23px;
+}
+
+
+.who-are-dobby{
+    color: #fff;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.who-are-dobby p{
+    font-size: 18px;
+}
+
+.start-button{
+    margin-top: 25px;
+}
+
+#canvas{
+    margin-top: 25px;
+    background-color: gray;
+}
+
+.footer {
+    color: #fff;
+    margin-top: 30px;
+    font-size: 20px;
+}
