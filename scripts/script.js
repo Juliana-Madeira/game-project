@@ -39,6 +39,11 @@ window.onload = () => {
             }
 
         }
+
+        
+        stop = () => {
+            this.clearInterval(this.intervalId)
+        }
     };
     const localGame = new LocalGame();
 
@@ -98,6 +103,30 @@ window.onload = () => {
                     break; 
             }
         }
+        
+        top = () => {
+            return this.posY 
+        }
+        bottom = () => {
+            return this.posY + this.heigth
+        }
+        left = () => {
+            return this.posX
+        }
+        rigth = () => {
+            return this.posX + this.width
+        }
+
+
+        crashWith(obstacles){
+            const freeLeft = this.left() > obstacles.rigth();
+            const freeRigth = this.rigth() < obstacles.left();
+            const freeTop = this.top() > obstacles.bottom();
+            const freeBottom = this.bottom() < obstacles.top(); 
+
+            return (!(freeLeft || freeRigth || freeTop || freeBottom))
+        }
+
     };
     const dobby = new Dobby(50, 200, 80, 80); 
 
@@ -152,7 +181,17 @@ window.onload = () => {
 
     const premium = new Premium (500,500)
 
+    
+    function checkGameOver (){
+        localGame.obstacles.forEach((obstacle) => {
+            const crashed = dobby.crashWith(obstacle)
+            if (crashed){
+                console.log('aqui bateu')
+                localGame.stop();
+            }
+        })
         
+    };
 
     function updateLocalGame(){     //atualização do local game, que é a área do meu game
         localGame.frames += 1
