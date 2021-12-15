@@ -10,6 +10,8 @@ window.onload = () => {
             this.obstacles = [];    //quero vários obstaculos
             this.premium = [];    //varios premios (socks)
             this.frames = 0;     //cada quadro criador dos obstaculos
+            this.points = 0;   //começa com 0 pontos
+            this.numberCrashed = 0;
             
         }
         start = () => {
@@ -37,13 +39,14 @@ window.onload = () => {
                 const randomPremium = Math.floor(Math.random() * this.canvas.height)
                 this.premium.push(new Premium(this.canvas.width, randomPremium))
             }
-
+        }
+        
+        stop = () => {
+            console.log('entrei no stop')
+            clearInterval(this.intervalId)
         }
 
         
-        stop = () => {
-            this.clearInterval(this.intervalId)
-        }
     };
     const localGame = new LocalGame();
 
@@ -65,18 +68,18 @@ window.onload = () => {
 
 
     class Dobby {
-        constructor(x, y, width, heigth){         //onde o Dobby estará, posição
+        constructor(x, y, width, height){         //onde o Dobby estará, posição
             this.posX = x;
             this.posY = y;
             this.width = width;
-            this.heigth = heigth; 
+            this.height = height; 
             this.img = new Image();
             this.img.src = './images/dobbyPNG.png';
             this.speed = 10;   //velocidade de movimentação do Dobby
             
         }
         draw = () => {
-            localGame.context.drawImage(this.img,this.posX, this.posY, this.width, this.heigth);
+            localGame.context.drawImage(this.img,this.posX, this.posY, this.width, this.height);
         }
 
         move = (command) => {
@@ -87,7 +90,7 @@ window.onload = () => {
                     }
                     break;
                 case 'ArrowDown':
-                    if (this.posY < 500 - 15 - this.heigth){
+                    if (this.posY < 500 - 15 - this.height){
                     this.posY += this.speed;
                     }
                     break;
@@ -97,7 +100,7 @@ window.onload = () => {
                     }
                     break;
                 case 'ArrowRight':
-                    if (this.posX < 800 - 15 - this.heigth){
+                    if (this.posX < 800 - 15 - this.height){
                     this.posX += this.speed;
                     }
                     break; 
@@ -108,27 +111,28 @@ window.onload = () => {
             return this.posY 
         }
         bottom = () => {
-            return this.posY + this.heigth
+            return this.posY + this.height
         }
         left = () => {
             return this.posX
         }
-        rigth = () => {
+        right = () => {
             return this.posX + this.width
         }
 
 
         crashWith(obstacles){
-            const freeLeft = this.left() > obstacles.rigth();
-            const freeRigth = this.rigth() < obstacles.left();
+            const freeLeft = this.left() > obstacles.right();
+            const freeRight = this.right() < obstacles.left();
             const freeTop = this.top() > obstacles.bottom();
             const freeBottom = this.bottom() < obstacles.top(); 
 
-            return (!(freeLeft || freeRigth || freeTop || freeBottom))
+            return (!(freeLeft || freeRight || freeTop || freeBottom))
         }
 
     };
-    const dobby = new Dobby(50, 200, 80, 80); 
+
+     const dobby = new Dobby(50, 200, 80, 80); 
 
 
 
@@ -137,20 +141,33 @@ window.onload = () => {
             this.posX = x;
             this.posY = y;
             this.width = 60;
-            this.heigth = 60;
+            this.height = 60;
             this.speed = 5;
             this.img = new Image(); 
             this.img.src = './images/voldemort-obstacle.png'
         }
 
         draw = () => {
-           localGame.context.drawImage(this.img,this.posX, this.posY, this.width, this.heigth);
+           localGame.context.drawImage(this.img,this.posX, this.posY, this.width, this.height);
         }
 
         updatePosition = () =>{             //alteração de posição do obstáculo, cada posX - cada speed, vai movimentando
-            //console.log('update pos')
             this.posX -= this.speed;
         }
+
+        top = () => {
+            return this.posY 
+        }
+        bottom = () => {
+            return this.posY + this.height
+        }
+        left = () => {
+            return this.posX
+        }
+        right = () => {
+            return this.posX + this.width
+        }
+
     };
 
     const obst = new Obstacle (600,300)
@@ -161,37 +178,41 @@ window.onload = () => {
             this.posX = x;
             this.posY = y;
             this.width = 35;
-            this.heigth = 35;
+            this.height = 35;
             this.speed = 6;
             this.img = new Image(); 
             this.img.src = './images/socks.png'
         }
 
         draw = () => {
-           localGame.context.drawImage(this.img,this.posX, this.posY, this.width, this.heigth);
+           localGame.context.drawImage(this.img,this.posX, this.posY, this.width, this.height);
         }
 
 
-        updatePosition = () =>{             //alteração de posição do obstáculo, cada posX - cada speed, vai movimentando
-            //console.log('update pos')
+        updatePosition = () =>{             //alteração de posição do premio, cada posX - cada speed, vai movimentando
             this.posX -= this.speed;
         }
+
+        top = () => {
+            return this.posY 
+        }
+        bottom = () => {
+            return this.posY + this.height
+        }
+        left = () => {
+            return this.posX
+        }
+        right = () => {
+            return this.posX + this.width
+        }
+
 
     };
 
     const premium = new Premium (500,500)
 
     
-    function checkGameOver (){
-        localGame.obstacles.forEach((obstacle) => {
-            const crashed = dobby.crashWith(obstacle)
-            if (crashed){
-                console.log('aqui bateu')
-                localGame.stop();
-            }
-        })
-        
-    };
+   
 
     function updateLocalGame(){     //atualização do local game, que é a área do meu game
         localGame.frames += 1
@@ -207,11 +228,39 @@ window.onload = () => {
         localGame.obstacles.forEach((obst) => {
             obst.updatePosition()
             obst.draw()
-        })              
+           
+        })            
+        checkGameOver() 
+        checkLive()
     };
 
 
+    function checkLive(){
+        const live = localGame.premium.some((socks) => {
+            return dobby.crashWith(socks)
+        }); if (live){
+                localGame.points += 1;
+            }
+        document.querySelector('#scoreSpan').innerText = localGame.points
+    }
 
+
+
+
+    function checkGameOver (){
+        let numberCrashed = 0;
+        const crashed = localGame.obstacles.some((obst) => {
+            return dobby.crashWith(obst)
+            }); 
+                if (crashed){
+                    localGame.obstacles.forEach((obst) => {
+                        numberCrashed += 1;
+                    })                               
+            } if (numberCrashed === 3){
+                localGame.stop()
+            }
+        
+    };
 
 
 
