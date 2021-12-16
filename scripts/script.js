@@ -11,6 +11,7 @@ window.onload = () => {
             this.points = 0;   //começa com 0 pontos
             this.numberCrashed = 0;
             this.gameStarted = false;
+            
 
 
         }
@@ -21,6 +22,11 @@ window.onload = () => {
 
         clear = () => {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+
+        audio = () => {
+            let audio = new Audio('./audio/theme-songs.mp3')
+            audio.play()
         }
 
         updateObstacles = () => {
@@ -248,6 +254,7 @@ window.onload = () => {
         localGame.clear()
         background.draw()
         dobby.draw()
+        //localGame.audio()
         localGame.updatePremium()
         localGame.premium.forEach((socks) => {
             socks.updatePosition()
@@ -313,6 +320,9 @@ window.onload = () => {
         if(!localGame.gameStarted){
         localGame.start();
         }
+        /*if(localGame.start){
+            localGame.audio()
+        }*/
     };
     document.getElementById('play-again').onclick = () => {
         resetGame();
