@@ -30,24 +30,11 @@ body{
 }
 
 
-.who-are-dobby{
-    color: #fff;
-    text-align: center;
-    margin-top: 60px;
-}
 
-.who-are-dobby p{
-    font-size: 18px;
-}
 
 #start-button{
     margin-top: 25px;
 }
-
-/*#canvas{
-    margin-top: 25px;
-    background-color: gray;
-}*/
 
 .footer {
     color: #fff;
@@ -60,3 +47,12 @@ body{
     color: white;
 }
 
+.score{
+    padding: 5px;
+    padding-top: 15px;
+    font-size: 20px;
+}
+
+#play-again{
+    padding: 15px;
+}
