@@ -150,12 +150,12 @@ window.onload = () => {
             return this.posX + this.width
         }
 
-
-        crashWith(obstacles) {
-            const freeLeft = this.left() > obstacles.right();
-            const freeRight = this.right() < obstacles.left();
-            const freeTop = this.top() > obstacles.bottom();
-            const freeBottom = this.bottom() < obstacles.top();
+        
+        crashWith(obst) {
+            const freeLeft = this.left() > obst.right();
+            const freeRight = this.right() < obst.left();
+            const freeTop = this.top() > obst.bottom();
+            const freeBottom = this.bottom() < obst.top();
 
             return (!(freeLeft || freeRight || freeTop || freeBottom))
         }
@@ -203,6 +203,7 @@ window.onload = () => {
             return this.posX + this.width
         }
 
+
     };
 
     const obst = new Obstacle(600, 300)
@@ -244,7 +245,7 @@ window.onload = () => {
 
     };
 
-    const premium = new Premium(500, 500)
+    const premium = new Premium(500,500)
 
 
 
@@ -272,22 +273,31 @@ window.onload = () => {
 
 
     function checkLive() {
-        const live = localGame.premium.some((socks) => {
+        /*const live = localGame.premium.some((socks) => {
             return dobby.crashWith(socks)
         });
-        if (live) {
+            if (live) {
+                console.log('meia')
             localGame.premium.forEach((socks, index) => {
                 localGame.premium.splice(index, 1);
                 localGame.points += 1;
 
             })
-        }
+        }*/
+        localGame.premium.forEach((socks, index) => {
+            const live = dobby.crashWith(socks)
+            if(live){
+                console.log('meia')
+                localGame.premium.splice(index,1)
+                localGame.points += 1
+            }
+        })
         document.querySelector('#scoreSpan').innerText = localGame.points;
     };
 
 
     function checkGameOver() {
-        const crashed = localGame.obstacles.some((obst) => {
+        /*const crashed = localGame.obstacles.some((obst) => {
             return dobby.crashWith(obst)
         });
         if (crashed) {
@@ -296,10 +306,20 @@ window.onload = () => {
                 localGame.obstacles.splice(index, 1);
                 localGame.numberCrashed += 1;
             });
-        }
-         if (localGame.numberCrashed === 3) {
-            console.log('aqui morre')
+        }*/
+         
+        localGame.obstacles.forEach((obst, index) => {
+            const crashed = dobby.crashWith(obst)
+            if(crashed){
+                console.log('voldemort')
+                localGame.obstacles.splice(index,1)
+                localGame.numberCrashed += 1
+            }
+        })
 
+        if (localGame.numberCrashed === 3) {
+            console.log('aqui morre')
+            localGame.audio()
             localGame.gameOver()
 
         };
@@ -321,13 +341,14 @@ window.onload = () => {
         localGame.start();
         }
         /*if(localGame.start){
-            localGame.audio()
+           localGame.audio()
         }*/
     };
     document.getElementById('play-again').onclick = () => {
         resetGame();
         localGame.start();
     };
+
     document.addEventListener('keydown', (e) => {     //e => é o evento 
         if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1) {
             e.preventDefault();
