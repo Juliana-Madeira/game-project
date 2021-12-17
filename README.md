@@ -29,5 +29,6 @@ The technologies used in this project were HTML5, CSS3 and JavaScript.
 
 ## Features
 
-(colocar aqui algumas coisas)
-Dillinger requires [Node.js](https://nodejs.org/) v10+ to run.
+All Art was crafted in Photopea (online) and Corel Draw.<br>
+Free Music by [John Williams](https://pt.wikipedia.org/wiki/John_Williams) from [Fringster.com](https://fringster.com/pt/ringtone/547/)
+
