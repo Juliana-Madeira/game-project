@@ -1,25 +1,31 @@
 # The Free Dobby Game
 
-This is my first game/my ironhack project for module 1 of the course Web Developer Full Stack
+This is my first game/my ironhack project for module 1 of the course Web Developer Full Stack.
 
-![Screen da Tela Inicial]()
+![Screen da Tela Inicial](https://github.com/Juliana-Madeira/game-project/blob/main/images/screen-inicial-dobby.png)
 
 
-Click [Here](https://juliana-madeira.github.io/game-project/) to play and help Dobby!
+Click [HERE](https://juliana-madeira.github.io/game-project/) to play and help Dobby!
 
+<hr />
 
 ## Introduction 
 
-(algo singelo sobre o que é o jogo, tipo dk)
+**The Free Dobby Game** consists of making Dobby run away from Voldemort and get all the possible socks, to be a free elf.
 
+<hr />
 
 ## Move 
-Arrow Keys: Up, Down, Left, Rigth
 
+Use the Arrow Keys: Up, Down, Left, Rigth
+
+<hr />
 
 ## Tech
 
-(colocar aqui o que usei)
+The technologies used in this project were HTML5, CSS3 and JavaScript.
+
+<hr />
 
 ## Features
 
