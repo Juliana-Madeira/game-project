@@ -21,7 +21,7 @@ body{
 }
 
 .to-do{
-    color: #fff;
+    color:  rgb(153, 147, 147);
     margin-top: 55px;
 }
 
@@ -33,11 +33,12 @@ body{
 
 
 #start-button{
-    margin-top: 25px;
+    margin-top: 30px;
 }
 
+
 .footer {
-    color: #fff;
+    color: rgb(153, 147, 147);
     margin-top: 30px;
     font-size: 20px;
 }
@@ -54,5 +55,10 @@ body{
 }
 
 #play-again{
-    padding: 15px;
+    padding-top: 20px;
+}
+
+.btn{
+    border: none;
+    background: rgb(94, 93, 93);
 }
