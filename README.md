@@ -2,10 +2,11 @@
 
 This is my first game/my ironhack project for module 1 of the course Web Developer Full Stack
 
-(uma imagem print do game aqui, ver como faz no google)
-[![N|Solid]()]
+![Screen da Tela Inicial]()
+
 
 Click [Here](https://juliana-madeira.github.io/game-project/) to play and help Dobby!
+
 
 ## Introduction 
 
