@@ -49,7 +49,6 @@ window.onload = () => {
         }
 
         stop = () => {
-            console.log('entrei no stop')
             clearInterval(this.intervalId)
         }
 
@@ -61,8 +60,6 @@ window.onload = () => {
                 this.context.drawImage(img, 0, 0, 800, 500)
             }
             img.src = './images/dumbledore-game-over.jpg'
-            
-            console.log('deu game over')
 
         }
         
@@ -255,7 +252,6 @@ window.onload = () => {
         localGame.clear()
         background.draw()
         dobby.draw()
-        //localGame.audio()
         localGame.updatePremium()
         localGame.premium.forEach((socks) => {
             socks.updatePosition()
@@ -273,17 +269,7 @@ window.onload = () => {
 
 
     function checkLive() {
-        /*const live = localGame.premium.some((socks) => {
-            return dobby.crashWith(socks)
-        });
-            if (live) {
-                console.log('meia')
-            localGame.premium.forEach((socks, index) => {
-                localGame.premium.splice(index, 1);
-                localGame.points += 1;
-
-            })
-        }*/
+        
         localGame.premium.forEach((socks, index) => {
             const live = dobby.crashWith(socks)
             if(live){
@@ -297,39 +283,25 @@ window.onload = () => {
 
 
     function checkGameOver() {
-        /*const crashed = localGame.obstacles.some((obst) => {
-            return dobby.crashWith(obst)
-        });
-        if (crashed) {
-            console.log('aqui bateu')
-            localGame.obstacles.forEach((obst, index) => {
-                localGame.obstacles.splice(index, 1);
-                localGame.numberCrashed += 1;
-            });
-        }*/
-         
+                 
         localGame.obstacles.forEach((obst, index) => {
             const crashed = dobby.crashWith(obst)
             if(crashed){
-                console.log('voldemort')
                 localGame.obstacles.splice(index,1)
                 localGame.numberCrashed += 1
             }
         })
 
-        if (localGame.numberCrashed === 3) {
-            console.log('aqui morre')
-            localGame.audio()
-            localGame.gameOver()
-
+            if (localGame.numberCrashed === 3) {
+                localGame.audio()
+                localGame.gameOver()
         };
     };
 
     
     function resetGame() {
         localGame.reset()
-        dobby.reset()
-        
+        dobby.reset()    
     }
     
 
@@ -340,9 +312,6 @@ window.onload = () => {
         if(!localGame.gameStarted){
         localGame.start();
         }
-        /*if(localGame.start){
-           localGame.audio()
-        }*/
     };
     document.getElementById('play-again').onclick = () => {
         resetGame();
